@@ -68,7 +68,7 @@ export async function fetchNamesByTypes(types: PokeType[]): Promise<string[]> {
 
   // AND logic (przecięcie wielu typów)
   const [first, ...rest] = lists;
-  const set = new Set(first);
+  const set = new Set<string>(first);
   for (const arr of rest) {
     for (const name of Array.from(set)) {
       if (!arr.includes(name)) set.delete(name);
@@ -76,5 +76,5 @@ export async function fetchNamesByTypes(types: PokeType[]): Promise<string[]> {
   }
 
   // Stabilna kolejność
-  return Array.from(set).sort();
+  return Array.from(set).sort((a, b) => a.localeCompare(b));
 }
